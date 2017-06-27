@@ -1,17 +1,24 @@
 package principal;
 
-import util.RotacionUtil;
-import java.util.Scanner;
 import javax.swing.JFrame;
+
+import util.RotacionUtil;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
 public class Programa extends JFrame{
 
-        private JLabel cantidad, cuatcuat, cuatesf, esfesf, esfcuat;
+        /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-        private JTextField cantText, ccText, ceText, ecText, eeText;
+		private JLabel cantidad, esfarcsencos, esfarcarc, esfraizarc, esfraizsencos, cuatcuat;
+
+
+        private JTextField cantText, esfArcSenCosText, esfRaizSenCosText, esfArcArcText, esfRaizArcText, cuarterText;
 
         private JButton calculateButton, exitButton;
 
@@ -32,29 +39,22 @@ public class Programa extends JFrame{
         public Programa()
 
         {
-        			// Este programa procesa tantas rotaciones, como las que sean solicitadas, generando set de datos
-        			// de forma aleatoria en cada nueva rotacion.
-        			// Para el objetivo buscado, el programa utiliza set de datos en esfericas y quaterniones, para luego
-        			// procesarlos ya sea utilizando rotaciones esfericas o por cuaterniones... de forma que queden abarcados
-        			// los cuatro casos de interes.
-        	
-        	
+                    cantidad = new JLabel("Cantidad de datos a procesar: ",SwingConstants.RIGHT);
 
-                    cantidad = new JLabel("Ingrese la cantidad de datos que desea procesar: ",SwingConstants.RIGHT);
-
-                    cuatcuat = new JLabel("Rotacion con cuaterniones, datos cuaterniones: ", SwingConstants.RIGHT);
-                    cuatesf = new JLabel("Rotacion con cuaterniones, datos esfericas: ", SwingConstants.RIGHT);
-                    esfcuat = new JLabel("Rotacion con esfericas, datos cuaterniones: ", SwingConstants.RIGHT);
-                    esfesf = new JLabel("Rotacion con esfericas, datos esfericas: ", SwingConstants.RIGHT);
-
+                    esfarcsencos = new JLabel("Rot. esfericas, Arc-SenCos: ", SwingConstants.RIGHT);
+                    esfarcarc = new JLabel("Rot. esfericas, Arc-Arc:", SwingConstants.RIGHT);
+                    esfraizsencos = new JLabel("Rot. esfericas, Raiz-SenCos: ", SwingConstants.RIGHT);
+                    esfraizarc = new JLabel("Rot. esfericas, Raiz-Arc: ", SwingConstants.RIGHT);
+                    cuatcuat = new JLabel("Rot. cuaterniones: ", SwingConstants.RIGHT);
                    
 
                     cantText = new JTextField(12);
 
-                    ccText = new JTextField(12);
-                    ceText = new JTextField(12);
-                    ecText = new JTextField(12);
-                    eeText = new JTextField(12);
+                    esfArcSenCosText = new JTextField(12);
+                    esfRaizSenCosText = new JTextField(12);
+                    esfArcArcText = new JTextField(12);
+                    esfRaizArcText = new JTextField(12);
+                    cuarterText = new JTextField(12);
 
                    
 
@@ -78,31 +78,30 @@ public class Programa extends JFrame{
 
                     Container pane = getContentPane();
 
-                    pane.setLayout(new GridLayout(6, 2));
+                    pane.setLayout(new GridLayout(7, 2));
 
                    
 
                     // El dise�o de Grid requiere que agregue componentes al panel de contenido, en el orden en que deben aparecer
 
                     pane.add(cantidad);
-
                     pane.add(cantText);
 
+                    pane.add(esfarcsencos);
+                    pane.add(esfArcSenCosText);
+                    
+                    pane.add(esfarcarc);
+                    pane.add(esfArcArcText);
+                    
+                    pane.add(esfraizsencos);
+                    pane.add(esfRaizSenCosText);
+                    
+                    pane.add(esfraizarc);
+                    pane.add(esfRaizArcText);
+
                     pane.add(cuatcuat);
+                    pane.add(cuarterText);
 
-                    pane.add(ccText);
-                    
-                    pane.add(cuatesf);
-
-                    pane.add(ceText);
-                    
-                    pane.add(esfcuat);
-
-                    pane.add(ecText);
-                    
-                    pane.add(esfesf);
-
-                    pane.add(eeText);
 
                     pane.add(calculateButton);
 
@@ -132,10 +131,11 @@ public class Programa extends JFrame{
                     			int cantidadComparaciones = Integer.parseInt(cantText.getText());
                     			tiempo = RotacionUtil.iniciarComparacion(cantidadComparaciones);
                     	                        
-                    			ccText.setText(""+tiempo[0][0]+" milisegundos");
-                    			ceText.setText(""+tiempo[0][1]+" milisegundos");
-                    			ecText.setText(""+tiempo[1][0]+" milisegundos");
-                    			eeText.setText(""+tiempo[1][1]+" milisegundos");
+                    			esfArcSenCosText.setText(""+tiempo[0][1]+" milisegundos");
+                    			esfArcArcText.setText(""+tiempo[0][0]+" milisegundos");
+                                esfRaizSenCosText.setText(""+tiempo[1][1]+" milisegundos");
+                                esfRaizArcText.setText(""+tiempo[1][0]+" milisegundos");
+                                cuarterText.setText(""+tiempo[2][0]+" milisegundos");
 
                     }
 
@@ -162,24 +162,6 @@ public class Programa extends JFrame{
 	public static void main(String[] args){
 	
 		Programa prog = new Programa();
-		/*double[][] tiempo = new double[2][2];
-		
-		System.out.println("Introduzca la cantidad de datos que desea procesar: ");
-		Scanner sc = new Scanner(System.in);
-		
-		try{
-			int cantidadComparaciones = sc.nextInt();
-			tiempo = RotacionUtil.iniciarComparacion(cantidadComparaciones);
-			System.out.println("Rotacion con cuaterniones, datos cuaterniones: "+tiempo[0][0]+" milisegundos");
-			System.out.println("Rotacion con cuaterniones, datos esfericas: "+tiempo[0][1]+" milisegundos");
-			System.out.println("Rotacion esfericas, datos cuaterniones: "+tiempo[1][0]+" milisegundos");
-			System.out.println("Rotacion esfericas, datos esfericas: "+tiempo[1][1]+" milisegundos");
-		}
-		catch(Exception e){
-			System.out.println("El dato ingresado no es un numero entero");
-		}
-	
-		sc.close();*/
 	
 	}
 }

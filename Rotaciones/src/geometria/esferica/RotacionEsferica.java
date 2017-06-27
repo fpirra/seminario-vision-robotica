@@ -48,6 +48,7 @@ public class RotacionEsferica implements Rotacion {
 		return null;
 	}
 
+	
 	public CoordenadaEsferica rotar(CoordenadaEsferica p) {
 		// eje de la rotacion u
 		// vector a rotar p
