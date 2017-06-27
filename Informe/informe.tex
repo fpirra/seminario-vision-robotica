@@ -11,6 +11,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{wrapfig}
+\usepackage[export]{adjustbox}
 \usepackage{titling}
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \linespread{1.05} % Line spacing - Palatino needs more space between lines
@@ -198,9 +199,11 @@ y cuando \(q = 1 \Rightarrow q^{- 1} =\overline{q} \)
 
 \emph{Datos:}\\
 
-\(\varphi_{A}\epsilon\ \lbrack 35,55\rbrack\),
-\(\lambda_{A}\epsilon\ \lbrack 35,55\rbrack\),\(\varphi_{P}\epsilon\ \lbrack 55,65\rbrack\),
-\(\lambda_{P}\epsilon\ \lbrack 55,65\rbrack\),\(\theta\)
+\(\varphi_{A}\ \lbrack 35,40\rbrack\),
+\(\varphi_{P}\ \lbrack 60,65\rbrack\),
+\(\lambda_{A}\ \lbrack 35,55\rbrack\),
+\(\lambda_{P}\ \lbrack 55,65\rbrack\),
+\(\theta\ \lbrack 80,85\rbrack\)
 
 \subsection{En esféricas:}\\
 
@@ -244,7 +247,7 @@ dos formas de calcular \(Sen(\widehat{\text{AP}})\):
 
 \emph{Calculo} \(\varphi_{p'}\)\emph{como:}\\
 
-\(\varphi_{p'} = \widehat{ZP'} = Cos(\widehat{\text{ZA}}).Cos(\widehat{AP'}) + Sen(\widehat{\text{ZA}}).Sen(\widehat{AP'}).Cos(\widehat{ZAP'})\)
+\(Cos(\varphi_{p'}) = \widehat{ZP'} = Cos(\widehat{\text{ZA}}).Cos(\widehat{AP'}) + Sen(\widehat{\text{ZA}}).Sen(\widehat{AP'}).Cos(\widehat{ZAP'})\)
 
 Como
 \(\widehat{AP'} = \widehat{\text{AP}} \Rightarrow Sen(\widehat{AP'}) = Sen(\widehat{\text{AP}})\)y
@@ -254,7 +257,7 @@ Como
 \(\widehat{\text{ZA}} = \varphi_{A} \Rightarrow Cos(\widehat{\text{ZA}}) = Cos(\varphi_{A})\)
 y \(Sen(\widehat{\text{ZA}}) = Sen(\varphi_{A})\)
 
-\(\Rightarrow \varphi_{p'} = Cos(\varphi_{A}).Cos(\widehat{\text{AP}}) + Sen(\varphi_{A}).Sen(\widehat{\text{AP}}).Cos(\widehat{ZAP'})\)\\
+\(\Rightarrow \varphi_{p'} = ArcCos[ Cos(\varphi_{A}).Cos(\widehat{\text{AP}}) + Sen(\varphi_{A}).Sen(\widehat{\text{AP}}).Cos(\widehat{ZAP'}) ]\)\\
 
 \emph{Calculo} \(\lambda_{p'}\)\emph{como:}\\
 
@@ -306,34 +309,44 @@ Finalmente: \(\varphi_{p'} = ARC\ Tan\ \lbrack\frac{\sqrt{(X_{R})^2+(Y_{R})^2}}{
 \clearpage  
 \section{Conclusiones}
 
-A continuación podremos ver reflejado en una tabla y un grafico, los resultados obtenidos mediante la experimentación realizada con el software creado para las mediciones:
+A continuación podremos se expondrá en una tabla y gráfico correspondiente, los resultados obtenidos mediante la experimentación con el software desarrollado, para poder realizar las mediciones:
 
 \begin{figure}[H]
   \centering
-    \includegraphics{result.png}
-  \caption{Gráfico de barras con resultados}
+    \includegraphics[scale=0.70]{result.png}
+  \caption{Resultados obtenidos, en milisegundos}
   \label{fig:ejemplo}
 \end{figure}\\
 
-Tiempo en milisegundos\\
 
 \begin{figure}[H]
   \centering
-    \includegraphics[scale=0.75]{resultgrafico.png}
-  \caption{Gráfico extendido}
+    \includegraphics[scale=0.65, left]{resultgrafico.png}
+  \caption{Gráfico extendido, comparando métodos}
   \label{fig:ejemplo}
 \end{figure}
 
   
-  Con la cantidad de datos empleados para medir la eficiencia de las rotaciones mediante cuaterniones y coordenadas esféricas se puede ver que existe una preeminencia de los mejores tiempos logrados por el método de rotaciones mediante cuaterniones. 
+  Como primera observación, es interesante notar que con pocos datos, prácticamente la velocidad de todos los algoritmos es la misma. 
+  A medida que se aumenta la cantidad de datos a procesar, es donde se puede comenzar a observar la diferencia entre los mismos, y podemos establecer algunas conclusiones mas concisas. \\
   
-  En el mejor de los casos los tiempos logrados con la mayor cantidad de datos de entrada (un millón) indican que es un 57 por ciento menor que con el método de coordenadas esféricas. También se puede ver que, dependiendo del formato de datos de entrada, los valores mejoran considerablemente. Esto indica que los procesos empleados para la conversión de los datos a coordenadas cartesianas juegan un papel muy importante en todo el procedimiento usado para las mediciones de tiempos. Esto se puede ver claramente cuando la cantidad de datos es un millón: los tiempos de procesamiento aumentan un 280 por ciento si los datos de origen están en coordenadas esféricas.Por otro lado si analizamos los resultados obtenidos con coordenadas esféricas podemos ver que la incidencia de la conversión de datos a coordenadas esféricas no es tan grande como con las rotaciones con cuaterniones. 
+    
+  En el caso limite, los tiempos logrados con la mayor cantidad de datos de entrada (un millón) indican que el método por cuaterniones es un 138 por ciento mas veloz, que el mejor de los demás métodos por coordenadas esféricas, que resulto ser la opción ArcCos-ArcSen.\\
   
-  Para un millón de datos de entrada los tiempos aumentan solo un 75 por ciento.
-  Si bien la conversión de los datos de entrada no está relacionada directamente con los métodos de rotación analizados esto puede jugar un rol clave dependiendo de las aplicaciones. Es decir, existen áreas donde el formato del origen de los datos condiciona los métodos a elegir. Por cuestiones de capacidad de los sistemas empleados sólo se pudo llegar a una cantidad de un millón de datos de entrada. 
+  Analizando los métodos de rotaciones por coordenadas esféricas, podemos ver claramente que a medida que los datos crecen a volúmenes muy grandes (tendiendo a 1 millón de datos), se puede establecer un orden (de mejor tiempo logrado, a peor), de los algoritmos estudiados:
   
-  En principio esto indicaría que el número de datos de entrada puede llegar a jugar un papel destacado en la elección de un método u otro. 
-  Pero por otro lado los gráficos sugieren que a la larga, y con mayor cantidad de datos, el método mediante cuaterniones prevalece. Mas a un si consideramos los enormes volúmenes de información empleados hoy en día.
+    \begin{enumerate}
+        \item Opción ArcCos - ArcSen
+        \item Opción Raiz - ArcSen
+        \item Opción Raiz - SenCos
+        \item Opción ArcCos - SenCos
+    \end{enumerate}\\
+
+  En conclusión esto indicaría que el número de datos de entrada puede llegar a jugar un papel destacado en la elección de un método u otro. 
+  Sin embargo, los gráficos sugieren que a la larga, y a medida que crece el cardinal de datos, el método de cuaterniones prevalece. 
+  Y por ultimo, entre los metodos de coordenadas esféricas, el mejor observado es la opcion por ArcCos - ArcSen.\\
+  
+  Nos parece muy importante resaltar, que hoy en día, el uso de big data, data mining, requieren el procesamiento de grandes volúmenes de información conjunta, de modo que es imprescindible tener en cuenta cómo varía la eficacia de los algoritmos, al crecer la cantidad de información procesada.
   
 
 
